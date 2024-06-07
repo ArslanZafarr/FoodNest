@@ -3,6 +3,7 @@ import {
   CreateDateColumn,
   Entity,
   ManyToOne,
+  OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { User } from './user.entity';
@@ -11,9 +12,6 @@ import { User } from './user.entity';
 export class Profile {
   @PrimaryGeneratedColumn()
   id: number;
-
-  @Column()
-  user_id: number;
 
   @Column()
   name: string;
@@ -30,6 +28,8 @@ export class Profile {
   @CreateDateColumn()
   updated_at: Date;
 
-  @ManyToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
+  // @ManyToOne(() => User, (user) => user.profile, { onDelete: 'CASCADE' })
+  // user: User;
+  @OneToOne(() => User, (user) => user.profile)
   user: User;
 }

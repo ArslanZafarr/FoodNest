@@ -13,4 +13,5 @@ export const typeOrmConfig: TypeOrmModuleOptions = {
   database: 'food_app',
   entities: [User, Role, UserRole, Profile],
   synchronize: true,
+  logging: true,
 };

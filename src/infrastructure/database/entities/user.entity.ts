@@ -3,11 +3,13 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
+  OneToMany,
   OneToOne,
   PrimaryGeneratedColumn,
 } from 'typeorm';
 import { Role } from './role.entity';
 import { Profile } from './profile.entity';
+import { UserRole } from './user-role.entity';
 
 @Entity('users')
 export class User {
@@ -30,7 +32,10 @@ export class User {
   @JoinColumn()
   role: Role;
 
-  @OneToOne(() => Profile)
+  @OneToOne(() => Profile, (profile) => profile.user, { cascade: true })
   @JoinColumn()
   profile: Profile;
+
+  @OneToMany(() => UserRole, (userRole) => userRole.user, { cascade: true })
+  userRoles: UserRole[];
 }
