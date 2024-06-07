@@ -1,5 +1,3 @@
-// login-user.dto.ts
-
 import {
   IsEmail,
   IsNotEmpty,

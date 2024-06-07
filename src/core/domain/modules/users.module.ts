@@ -1,4 +1,5 @@
 import { Module } from '@nestjs/common';
+import { JwtModule } from '@nestjs/jwt';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { UserController } from 'src/core/interfaces/adapters/controllers/user.controller';
 import { UserService } from 'src/core/interfaces/adapters/services/users.service';
@@ -8,7 +9,13 @@ import { UserRole } from 'src/infrastructure/database/entities/user-role.entity'
 import { User } from 'src/infrastructure/database/entities/user.entity';
 
 @Module({
-  imports: [TypeOrmModule.forFeature([User, Role, UserRole, Profile])],
+  imports: [
+    TypeOrmModule.forFeature([User, Role, UserRole, Profile]),
+    JwtModule.register({
+      secret: 'secret',
+      signOptions: { expiresIn: '60m' },
+    }),
+  ],
   controllers: [UserController],
   providers: [UserService],
   exports: [UserService],

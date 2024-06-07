@@ -1,5 +1,3 @@
-// register-user.dto.ts
-
 import {
   IsEmail,
   IsNotEmpty,
@@ -39,5 +37,5 @@ export class RegisterUserDto {
   address?: string;
 
   @IsNotEmpty()
-  role: string; // Assuming role is optional and passed during registration
+  role: string;
 }

@@ -11,11 +11,12 @@ import { Profile } from 'src/infrastructure/database/entities/profile.entity';
 import { Role } from 'src/infrastructure/database/entities/role.entity';
 import { UserRole } from 'src/infrastructure/database/entities/user-role.entity';
 import { User } from 'src/infrastructure/database/entities/user.entity';
+import { JwtAuthGuard } from 'src/shared/guards/jwt-auth.guard';
 
 @Module({
   imports: [
     PassportModule,
-    TypeOrmModule.forFeature([User, Profile, UserRole, Role]), // Import User entity into AuthModule
+    TypeOrmModule.forFeature([User, Profile, UserRole, Role]),
     JwtModule.register({
       secret: 'secret',
       signOptions: { expiresIn: '60m' },
@@ -23,6 +24,7 @@ import { User } from 'src/infrastructure/database/entities/user.entity';
     UserModule,
   ],
   controllers: [AuthController],
-  providers: [AuthService, LocalStrategy, JwtStrategy],
+  providers: [AuthService, LocalStrategy, JwtStrategy, JwtAuthGuard],
+  exports: [AuthService, JwtAuthGuard],
 })
 export class AuthModule {}
